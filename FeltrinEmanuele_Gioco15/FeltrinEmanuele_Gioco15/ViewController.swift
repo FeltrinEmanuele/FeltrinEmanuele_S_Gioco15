@@ -10,9 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var labelArray: UILabel!
     
     
     var arrayGioco = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+    var nInversioni = 0;
+   
+    
+    @IBAction func btn_inizia(_ sender: Any) {
+        Mescola();
+        labelArray.text = String(nInversioni);
+        for n in 0...15
+        {
+            labelArray.text! += " " + String(arrayGioco[n]);
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -21,8 +33,9 @@ class ViewController: UIViewController {
     }
 
     
-    func Mescola(arrayGioco: [Int]) -> [Int]{
+    func Mescola(){
         let NumInversioni:Int = NumeroInversioni();
+        nInversioni = NumInversioni;
         
         for i in 1...NumInversioni  {
             var a=Int.random(in:0..<15);
@@ -31,16 +44,11 @@ class ViewController: UIViewController {
                  a=Int.random(in:0..<15);
                  b=Int.random(in:0..<15);
             }
-            swap(&arrayGioco[a],&arrayGioco[b])
-            
             var c=arrayGioco[a];
             arrayGioco[a] = b;
             arrayGioco[b] = c;
-            
+          
         }
-        
-        
-        
     }
     
     
