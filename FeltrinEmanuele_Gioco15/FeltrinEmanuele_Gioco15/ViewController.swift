@@ -9,65 +9,133 @@
 import UIKit
 
 class ViewController: UIViewController {
+  
     
-    @IBOutlet weak var labelArray: UILabel!
+    @IBOutlet var ArrayBottoni: [UIButton]!
     
+    var matrice: [[Int]] = [[1, 2, 3, 4],[5, 6, 7, 8],[9, 10, 11, 12],[13, 14, 15, 0]]
     
-    var arrayGioco = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
-    var nInversioni = 0;
-   
-    
+        var rigaZero = 0
+        var colonnaZero = 0
+
     @IBAction func btn_inizia(_ sender: Any) {
-        Mescola();
-        labelArray.text = String(nInversioni);
-        for n in 0...15
+        for _ in 1...100
         {
-            labelArray.text! += " " + String(arrayGioco[n]);
-        }
+           TrovaZero()
+          if(Bool.random()==true)
+          {
+              MescolaOrizzontale()
+          }
+          else
+          {
+           MescolaVerticale()
+          }
     }
-    
+        CambiaBottoni()
+}
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-
+}
     
-    func Mescola(){
-        let NumInversioni:Int = NumeroInversioni();
-        nInversioni = NumInversioni;
-        
-        for i in 1...NumInversioni  {
-            var a=Int.random(in:0..<16);
-            var b=Int.random(in:0..<16);
-           while (arrayGioco[a]<=arrayGioco[b] || a<=b) {
-                 a=Int.random(in:0..<16);
-                 b=Int.random(in:0..<16);
-            }  //[a]>[b] && a<b
-            //arrayGioco[a]<=arrayGioco[b] || a<=b
-            let c=arrayGioco[a];
-            arrayGioco[a] = arrayGioco[b];
-            arrayGioco[b] = c;
+    func TrovaZero(){
+    for i in 0...3
+    {
+        for Q in 0...3
+            {
+              if (matrice[Q][i]==0)
+              {
+               colonnaZero = Q
+               rigaZero = i
+              }
+            }
+    }
+}
+    
+    func CambiaBottoni()
+    {
+        var x = 0
+        var y = 0
+        for _ in 0...15
+        {
+            if(x==3)
+            {
+                ArrayBottoni[y*4+x].setTitle(String(matrice[x][y]), for: .normal)
+                x = 0
+                y = y + 1
+            }
+            else
+            {
+                ArrayBottoni[y*4+x].setTitle(String(matrice[x][y]), for: .normal)
+                x = x + 1
+            }
         }
     }
     
-    
-    
-    
-    func NumeroInversioni() -> Int {
-        let RandomInt=Int.random(in:10..<30);
-        return RandomInt
-        }
+func MescolaOrizzontale()
+{
+        var SpostaOrizzontale = 0
         
-    }
+       if(rigaZero==3)
+       {
+         SpostaOrizzontale = 2
+       }
+       else if(rigaZero == 0){
+         SpostaOrizzontale = 1
+       }
+       else if(rigaZero == 1)
+       {
+         SpostaOrizzontale = Int.random(in: 0...2)
+         while(SpostaOrizzontale==rigaZero)
+         {
+            SpostaOrizzontale = Int.random(in: 0...2)
+         }
+       }
+        else if(rigaZero == 2)
+       {
+         SpostaOrizzontale = Int.random(in: 1...3)
+          while(SpostaOrizzontale==rigaZero)
+         {
+            SpostaOrizzontale = Int.random(in: 1...3)
+         }
+       }
+       
+            let NumeroSupp = matrice[SpostaOrizzontale][rigaZero]
+            matrice[SpostaOrizzontale][rigaZero] = 0
+            matrice[colonnaZero][rigaZero] = NumeroSupp
+}
     
     
-    
-    
-
-
-
-
-
-
-
+func MescolaVerticale()
+{
+     var SpostaVerticale = 0
+        
+       if(colonnaZero==3)
+       {
+         SpostaVerticale = 2
+       }
+       else if(colonnaZero == 0){
+         SpostaVerticale = 1
+       }
+       else if(colonnaZero == 1)
+       {
+         SpostaVerticale = Int.random(in: 0...2)
+         while(SpostaVerticale==colonnaZero)
+         {
+            SpostaVerticale = Int.random(in: 0...2)
+         }
+       }
+        else if(colonnaZero == 2)
+       {
+         SpostaVerticale = Int.random(in: 1...3)
+          while(SpostaVerticale==colonnaZero)
+         {
+            SpostaVerticale = Int.random(in: 1...3)
+         }
+       }
+       
+            let NumeroSupp = matrice[SpostaVerticale][colonnaZero]
+            matrice[SpostaVerticale][colonnaZero] = 0
+            matrice[rigaZero][colonnaZero] = NumeroSupp
+}
+}
