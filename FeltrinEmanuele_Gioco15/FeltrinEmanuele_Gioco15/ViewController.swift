@@ -60,13 +60,13 @@ class ViewController: UIViewController {
         {
             if(x==3)
             {
-                ArrayBottoni[y*4+x].setTitle(String(matrice[x][y]), for: .normal)
+                ArrayBottoni[y*4+x].setTitle(String(matrice[y][x]), for: .normal)
                 x = 0
                 y = y + 1
             }
             else
             {
-                ArrayBottoni[y*4+x].setTitle(String(matrice[x][y]), for: .normal)
+                ArrayBottoni[y*4+x].setTitle(String(matrice[y][x]), for: .normal)
                 x = x + 1
             }
         }
@@ -76,25 +76,26 @@ func MescolaOrizzontale()
 {
         var SpostaOrizzontale = 0
         
-       if(rigaZero==3)
+       if(colonnaZero==3)
        {
          SpostaOrizzontale = 2
        }
-       else if(rigaZero == 0){
+       else if(colonnaZero == 0)
+       {
          SpostaOrizzontale = 1
        }
-       else if(rigaZero == 1)
+       else if(colonnaZero == 1)
        {
          SpostaOrizzontale = Int.random(in: 0...2)
-         while(SpostaOrizzontale==rigaZero)
+         while(SpostaOrizzontale==colonnaZero)
          {
             SpostaOrizzontale = Int.random(in: 0...2)
          }
        }
-        else if(rigaZero == 2)
+        else if(colonnaZero == 2)
        {
          SpostaOrizzontale = Int.random(in: 1...3)
-          while(SpostaOrizzontale==rigaZero)
+          while(SpostaOrizzontale==colonnaZero)
          {
             SpostaOrizzontale = Int.random(in: 1...3)
          }
@@ -110,32 +111,33 @@ func MescolaVerticale()
 {
      var SpostaVerticale = 0
         
-       if(colonnaZero==3)
+       if(rigaZero==3)
        {
          SpostaVerticale = 2
        }
-       else if(colonnaZero == 0){
+       else if(rigaZero == 0){
          SpostaVerticale = 1
        }
-       else if(colonnaZero == 1)
+       else if(rigaZero == 1)
        {
          SpostaVerticale = Int.random(in: 0...2)
-         while(SpostaVerticale==colonnaZero)
+         while(SpostaVerticale==rigaZero)
          {
             SpostaVerticale = Int.random(in: 0...2)
+            
          }
        }
-        else if(colonnaZero == 2)
+        else if(rigaZero == 2)
        {
          SpostaVerticale = Int.random(in: 1...3)
-          while(SpostaVerticale==colonnaZero)
+          while(SpostaVerticale==rigaZero)
          {
             SpostaVerticale = Int.random(in: 1...3)
          }
        }
        
-            let NumeroSupp = matrice[SpostaVerticale][colonnaZero]
-            matrice[SpostaVerticale][colonnaZero] = 0
-            matrice[rigaZero][colonnaZero] = NumeroSupp
+            let NumeroSupp = matrice[colonnaZero][SpostaVerticale]
+            matrice[colonnaZero][SpostaVerticale] = 0
+            matrice[colonnaZero][rigaZero] = NumeroSupp
 }
 }
